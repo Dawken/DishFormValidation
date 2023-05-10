@@ -1,53 +1,42 @@
 import React from 'react'
 import styles from './dishForm.module.scss'
-import {FormControl, InputLabel, MenuItem, Select, TextField, ThemeProvider} from '@mui/material'
-import {purpleTheme} from '../../themes/customMuiTheme'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import {MobileTimePicker} from '@mui/x-date-pickers'
+import { ThemeProvider } from '@mui/material'
+import { purpleTheme } from '../../themes/customMuiTheme'
+import useDishForm from './useDishForm'
+import { FormProvider } from 'react-hook-form'
+import OrderLabel from '../../shared/orderLabel'
 
 
 const DishForm = () => {
 
+	const { methods, order } = useDishForm()
+
 	return (
 		<div className={styles.layout}>
-			<div className={styles.dishForm}>
-				<ThemeProvider theme={purpleTheme}>
-					<TextField
-						className={styles.dishLabel}
-						label='Dish name'
-					/>
-					<LocalizationProvider dateAdapter={AdapterDayjs}>
-						<DemoContainer
-							components={['MobileTimePicker', 'MobileTimePicker', 'MobileTimePicker']}
-							sx={{ minWidth: 210 }}
-						>
-							<MobileTimePicker
-								className={styles.dishLabel}
-								label={'Preparation time'}
-								views={['hours', 'minutes', 'seconds']}
-								format='hh:mm:ss'
-							/>
-						</DemoContainer>
-					</LocalizationProvider>
-					<FormControl>
-						<>
-							<InputLabel className={styles.dishLabel}>
-										Dish type
-							</InputLabel>
-							<Select
-								label='Dish type'
-								className={styles.dishLabel}
-							>
-								<MenuItem value='Pizza'>Pizza</MenuItem>
-								<MenuItem value='Soup'>Soup</MenuItem>
-								<MenuItem value='Sandwich'>Sandwich</MenuItem>
-							</Select>
-						</>
-					</FormControl>
-				</ThemeProvider>
-			</div>
+			<FormProvider {...methods}>
+				<form
+					onSubmit={methods.handleSubmit((formv) => order(formv))}
+					className={styles.dishForm}
+				>
+					<ThemeProvider theme={purpleTheme} >
+						<OrderLabel name='name' label='Dish name'/>
+						<OrderLabel name='preparation_time' type='time' label='Preparation time'/>
+						<OrderLabel
+							name='type'
+							type='select'
+							label='Dish type'
+							options={[
+								{ value: 'Pizza', label: 'Pizza' },
+								{ value: 'Soup', label: 'Soup' },
+								{ value: 'Sandwich', label: 'Sandwich' },
+							]}
+						/>
+					</ThemeProvider>
+					<div className={styles.order}>
+						<button className={styles.orderButton}>Order</button>
+					</div>
+				</form>
+			</FormProvider>
 		</div>
 	)
 }

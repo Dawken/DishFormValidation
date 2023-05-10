@@ -4,14 +4,35 @@
   align-items: center;
   height: 100vh;
   .dishForm {
-    width: 50vh;
+    width: 40vh;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 15px;
-    display: inline-grid;
+    height: 400px;
     margin: 20px;
-    .dishLabel {
-      margin: 20px 20px;
+  }
+  .order {
+    display: flex;
+    justify-content: center;
+    .orderButton {
+      margin-top: 20px;
+      height: 40px;
+      border: none;
+      width: 200px;
+      border-radius: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: 0.5s;
+      background-size: 220% auto;
       color: white;
+      font-weight: bold;
+      background-image: linear-gradient(to right, #7900ff 0%, #1201ff 51%, #ff0000 100%);
     }
+
+    .orderButton:hover {
+      background-position: right center;
+    }
+  }
+  .orderButton:active {
+    transform: scale(1.05);
   }
 }

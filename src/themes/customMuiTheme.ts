@@ -17,6 +17,12 @@ const purpleTheme = createTheme({
 						borderColor: '#5500ff',
 						borderWidth: 2,
 					},
+					'&:hover:not($disabled):not($focused):not($error) .MuiOutlinedInput-notchedOutline': {
+						borderColor: '#5500ff'
+					},
+					'&:hover:not($disabled):not($focused):not($error) fieldset': {
+						borderColor: '#5500ff'
+					},
 					'&:hover .MuiOutlinedInput-notchedOutline': {
 						borderColor: '#5500ff',
 					},
@@ -27,7 +33,12 @@ const purpleTheme = createTheme({
 						borderColor: '#5500ff',
 					},
 					'& .MuiOutlinedInput-input': {
-						color: '#ffffff'
+						color: '#ffffff',
+					},
+					'&:hover': {
+						'& .MuiOutlinedInput-notchedOutline': {
+							borderColor: '#5500ff',
+						},
 					},
 				},
 			},
@@ -39,11 +50,23 @@ const purpleTheme = createTheme({
 					'&.Mui-focused': {
 						color: '#ffffff',
 					},
+					'&.Mui-error': {
+						color: '#ffffff',
+					},
+				},
+			},
+		},
+		MuiSelect: {
+			styleOverrides: {
+				icon: {
+					color: '#ffffff',
 				},
 			},
 		},
 	},
 })
+
+
 
 export { purpleTheme }
 
