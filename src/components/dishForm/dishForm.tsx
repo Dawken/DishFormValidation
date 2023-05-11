@@ -4,7 +4,9 @@ import { ThemeProvider } from '@mui/material'
 import { purpleTheme } from '../../themes/customMuiTheme'
 import useDishForm from './useDishForm'
 import { FormProvider } from 'react-hook-form'
-import OrderLabel from '../../shared/orderLabel'
+import DishTextField from './dishFormLabels/dishTextField'
+import DishTimePicker from './dishFormLabels/dishTimePicker'
+import DishSelect from './dishFormLabels/dishSelect'
 
 
 const DishForm = () => {
@@ -19,17 +21,17 @@ const DishForm = () => {
 					className={styles.dishForm}
 				>
 					<ThemeProvider theme={purpleTheme} >
-						<OrderLabel name='name' label='Dish name'/>
-						<OrderLabel name='preparation_time' type='time' label='Preparation time'/>
-						<OrderLabel
+						<DishTextField name='name' label='Dish name' className={styles.label}/>
+						<DishTimePicker name='preparation_time' label='Preparation time' className={styles.label}/>
+						<DishSelect
 							name='type'
-							type='select'
 							label='Dish type'
 							options={[
 								{ value: 'Pizza', label: 'Pizza' },
 								{ value: 'Soup', label: 'Soup' },
 								{ value: 'Sandwich', label: 'Sandwich' },
 							]}
+							className={styles.label}
 						/>
 					</ThemeProvider>
 					<div className={styles.order}>

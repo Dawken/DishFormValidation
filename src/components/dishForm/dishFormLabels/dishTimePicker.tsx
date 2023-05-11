@@ -1,0 +1,57 @@
+import { Controller, useFormContext, get } from 'react-hook-form'
+import React, { FC } from 'react'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
+import { DatePickerProps, MobileTimePicker, MobileTimePickerProps, TimeView } from '@mui/x-date-pickers'
+import dayjs from 'dayjs'
+
+type TimePickerProps = {
+	name: string;
+} & DatePickerProps<string>
+
+interface CustomMobileTimePickerProps extends MobileTimePickerProps<string, TimeView> {
+	className: string
+}
+
+const DishTimePicker: FC<TimePickerProps & CustomMobileTimePickerProps> = ({ name, ...otherProps }) => {
+
+	const {
+		control,
+		formState: { errors },
+	} = useFormContext()
+
+	const error = get(errors, name)
+
+	return (
+		<Controller
+			control={control}
+			name={name}
+			render={({ field }) => (
+				<LocalizationProvider
+					dateAdapter={AdapterDayjs}
+				>
+					<DemoContainer components={['MobileTimePicker', 'MobileTimePicker', 'MobileTimePicker']} sx={{ minWidth: 210 }}>
+						<MobileTimePicker
+							{...otherProps}
+							{...field}
+							views={['hours', 'minutes', 'seconds']}
+							format='hh:mm:ss'
+							value={field.value ?? otherProps.value ?? ''}
+							slotProps={{
+								textField: {
+									error: !!error
+								}
+							}}
+							onChange={value => {
+								const preparationTime = dayjs(value).format('hh:mm:ss')
+								field.onChange(preparationTime)
+							}}
+						/>
+					</DemoContainer>
+				</LocalizationProvider>
+			)}
+		/>
+	)
+}
+export default DishTimePicker

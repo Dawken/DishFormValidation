@@ -4,11 +4,16 @@
   align-items: center;
   height: 100vh;
   .dishForm {
-    width: 40vh;
+    width: 45vh;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     height: 400px;
     margin: 20px;
+    display: inline-grid;
+    .label {
+      margin: 20px 30px;
+      height: 6vh;
+    }
   }
   .order {
     display: flex;
