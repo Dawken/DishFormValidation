@@ -1,13 +1,14 @@
 import React, { FC } from 'react'
 import { Controller, get, useFormContext } from 'react-hook-form'
-import { Select, MenuItem, SelectProps, InputLabel, FormControl } from '@mui/material'
+import { Select, MenuItem, SelectProps, InputLabel, FormControl, InputAdornment } from '@mui/material'
 import styles from '../dishForm.module.scss'
 
 
 type InputProps = {
 	name: string;
-	options: { value: string | number; label: string | number }[]
+	options: { value: string | number; label: string | number}[]
 	setDishType?: React.Dispatch<React.SetStateAction<string>>
+	icon: React.ReactNode
 } & SelectProps
 
 
@@ -37,6 +38,21 @@ const DishSelect: FC<InputProps> = ({ name, options, setDishType, ...otherProps 
 							}}
 							error={!!error}
 							value={field.value ?? otherProps.value ?? ''}
+							startAdornment={
+								<InputAdornment position='start'>
+									<div style={{color:'white'}}>{otherProps.icon}</div>
+								</InputAdornment>
+							}
+							inputProps={{
+								MenuProps: {
+									MenuListProps: {
+										sx: {
+											backgroundColor: '#1f1f1f',
+											color: 'white'
+										}
+									}
+								}
+							}}
 						>
 							{options.map((option) => (
 								<MenuItem key={option.value} value={option.value}>

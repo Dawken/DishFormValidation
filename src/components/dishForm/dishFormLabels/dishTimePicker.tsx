@@ -5,9 +5,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import { DatePickerProps, MobileTimePicker, MobileTimePickerProps, TimeView } from '@mui/x-date-pickers'
 import dayjs from 'dayjs'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import { InputAdornment } from '@mui/material'
 
 type TimePickerProps = {
-	name: string;
+	name: string
 } & DatePickerProps<string>
 
 interface CustomMobileTimePickerProps extends MobileTimePickerProps<string, TimeView> {
@@ -36,15 +38,23 @@ const DishTimePicker: FC<TimePickerProps & CustomMobileTimePickerProps> = ({ nam
 							{...otherProps}
 							{...field}
 							views={['hours', 'minutes', 'seconds']}
-							format='hh:mm:ss'
-							value={field.value ?? otherProps.value ?? ''}
+							format='HH:mm:ss'
+							value={field.value ?? otherProps.value ?? null}
 							slotProps={{
 								textField: {
-									error: !!error
+									error: !!error,
+									InputProps: {
+										startAdornment: (
+											<InputAdornment position='start'>
+												<AccessTimeIcon style={{color:'white'}} />
+											</InputAdornment>
+										)
+									}
 								}
 							}}
+							ampm={false}
 							onChange={value => {
-								const preparationTime = dayjs(value).format('hh:mm:ss')
+								const preparationTime = dayjs(value).format('HH:mm:ss')
 								field.onChange(preparationTime)
 							}}
 						/>
