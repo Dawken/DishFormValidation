@@ -49,7 +49,8 @@ const DishTimePicker: FC<TimePickerProps & CustomMobileTimePickerProps> = ({ nam
 												<AccessTimeIcon style={{color:'white'}} />
 											</InputAdornment>
 										)
-									}
+									},
+									placeholder: undefined
 								}
 							}}
 							ampm={false}

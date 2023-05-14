@@ -15,13 +15,13 @@ import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import BreakfastDiningIcon from '@mui/icons-material/BreakfastDining'
 import DoneIcon from '@mui/icons-material/Done'
 import ClearIcon from '@mui/icons-material/Clear'
+import DishNumberField from './dishFormLabels/dishNumberField'
 
 
 const DishForm = () => {
 
 	const { methods, order, dishType, setDishType, isLoading, response } = useDishForm()
 
-	console.log(!isLoading || !response.isSuccess || !response.isFailed)
 	return (
 		<div className={styles.layout}>
 			<FormProvider {...methods}>
@@ -46,17 +46,18 @@ const DishForm = () => {
 						/>
 						{dishType === 'pizza' &&
 							<>
-								<DishTextField
+								<DishNumberField
 									name='no_of_slices'
 									label='Slices'
-									type='number'
+									regex={/[0-9]/}
 									inputProps={{ min: 0 }}
 									className={styles.label}
 									icon={<LocalPizzaIcon/>}
 								/>
-								<DishTextField
+								<DishNumberField
 									name='diameter'
 									label='Diameter'
+									regex={/^\d*\.?\d*$/}
 									type='number'
 									inputProps={{ step: 0.1, min: 1 }}
 									className={styles.label}
@@ -65,10 +66,10 @@ const DishForm = () => {
 							</>
 						}
 						{dishType === 'sandwich' &&
-							<DishTextField
+							<DishNumberField
 								name='slices_of_bread'
 								label='Slices'
-								type='number'
+								regex={/[0-9]/}
 								inputProps={{ min: 0 }}
 								className={styles.label}
 								icon={<BreakfastDiningIcon/>}
@@ -89,7 +90,7 @@ const DishForm = () => {
 					<div className={styles.order}>
 						<button className={styles.orderButton}
 							style={isLoading || response.isSuccess || response.isFailed ?
-								{width: '3rem', height:'3rem', borderRadius:'50%'}
+								{width: '40px', height:'40px', borderRadius:'50%'}
 								:
 								{}}
 						>
