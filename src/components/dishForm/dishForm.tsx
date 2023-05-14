@@ -21,6 +21,7 @@ const DishForm = () => {
 
 	const { methods, order, dishType, setDishType, isLoading, response } = useDishForm()
 
+	console.log(!isLoading || !response.isSuccess || !response.isFailed)
 	return (
 		<div className={styles.layout}>
 			<FormProvider {...methods}>
@@ -86,11 +87,16 @@ const DishForm = () => {
 						}
 					</ThemeProvider>
 					<div className={styles.order}>
-						<button className={styles.orderButton} disabled={isLoading || response.isSuccess || response.isFailed}>
-							{response.isSuccess ? 'Ordered' : 'Order'}
-							{isLoading && <CircularProgress size={25} className={styles.orderButtonIcon} />}
-							{response.isSuccess && <DoneIcon className={styles.orderButtonIcon} style={{color: 'green'}}/>}
-							{response.isFailed && <ClearIcon className={styles.orderButtonIcon} style={{color: 'red'}}/>}
+						<button className={styles.orderButton}
+							style={isLoading || response.isSuccess || response.isFailed ?
+								{width: '3rem', height:'3rem', borderRadius:'50%'}
+								:
+								{}}
+						>
+							{(!isLoading && !response.isSuccess && !response.isFailed) && 'Order'}
+							{isLoading && <CircularProgress size={25}  />}
+							{response.isSuccess && <DoneIcon style={{color: 'green'}}/>}
+							{response.isFailed && <ClearIcon style={{color: 'red'}}/>}
 						</button>
 					</div>
 				</form>

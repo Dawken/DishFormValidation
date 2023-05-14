@@ -17,25 +17,23 @@
   .order {
     display: flex;
     justify-content: center;
+    height: 85px;
     .orderButton {
       margin: 20px;
       height: 40px;
       border: none;
       width: 200px;
-      border-radius: 10px;
+      border-radius: 5px;
       text-align: center;
       text-transform: uppercase;
       transition: 0.5s;
       background-size: 220% auto;
       color: white;
-      font-weight: bold;
       background-image: linear-gradient(to right, #7900ff 0%, #1201ff 51%, #ff0000 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      .orderButtonIcon {
-        margin: 0 0 0 10px;
-      }
+      font-family: 'Kanit', sans-serif;
     }
 
     .orderButton:hover {
