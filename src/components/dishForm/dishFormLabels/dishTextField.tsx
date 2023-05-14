@@ -36,7 +36,7 @@ const DishTextField: FC<InputProps> = ({ name, ...otherProps }) => {
 					}}
 					onChange={event => {
 						if(otherProps.label === 'Slices' || otherProps.label === 'Diameter') {
-							field.onChange(event.target.value !== '' ? Number(event.target.value) : event.preventDefault())
+							field.onChange(event.target.value.length > 0 ? Number(event.target.value): event.preventDefault())
 						} else {
 							field.onChange(event.target.value)
 						}

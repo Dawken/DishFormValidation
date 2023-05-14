@@ -30,6 +30,12 @@
       color: white;
       font-weight: bold;
       background-image: linear-gradient(to right, #7900ff 0%, #1201ff 51%, #ff0000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .orderButtonIcon {
+        margin: 0 0 0 10px;
+      }
     }
 
     .orderButton:hover {

@@ -12,7 +12,7 @@ type TimePickerProps = {
 	name: string
 } & DatePickerProps<string>
 
-interface CustomMobileTimePickerProps extends MobileTimePickerProps<string, TimeView> {
+interface CustomMobileTimePickerProps extends MobileTimePickerProps<TimeView> {
 	className: string
 }
 

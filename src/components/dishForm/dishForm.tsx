@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './dishForm.module.scss'
-import { ThemeProvider } from '@mui/material'
+import { CircularProgress, ThemeProvider } from '@mui/material'
 import { purpleTheme } from '../../themes/customMuiTheme'
 import useDishForm from './useDishForm'
 import { FormProvider } from 'react-hook-form'
@@ -13,12 +13,13 @@ import LocalPizzaIcon from '@mui/icons-material/LocalPizza'
 import HeightIcon from '@mui/icons-material/Height'
 import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import BreakfastDiningIcon from '@mui/icons-material/BreakfastDining'
+import DoneIcon from '@mui/icons-material/Done'
+import ClearIcon from '@mui/icons-material/Clear'
 
 
 const DishForm = () => {
 
-	const { methods, order, dishType, setDishType } = useDishForm()
-
+	const { methods, order, dishType, setDishType, isLoading, response } = useDishForm()
 
 	return (
 		<div className={styles.layout}>
@@ -34,21 +35,21 @@ const DishForm = () => {
 							name='type'
 							label='Dish type'
 							options={[
-								{ value: 'Pizza', label: 'Pizza' },
-								{ value: 'Soup', label: 'Soup' },
-								{ value: 'Sandwich', label: 'Sandwich' },
+								{ value: 'pizza', label: 'pizza' },
+								{ value: 'soup', label: 'soup' },
+								{ value: 'sandwich', label: 'sandwich' },
 							]}
 							className={styles.label}
 							icon={<RestaurantIcon />}
 							setDishType={setDishType}
 						/>
-						{dishType === 'Pizza' &&
+						{dishType === 'pizza' &&
 							<>
 								<DishTextField
 									name='no_of_slices'
 									label='Slices'
 									type='number'
-									inputProps={{ min: 0, pattern: '^[0-9]+$' }}
+									inputProps={{ min: 0 }}
 									className={styles.label}
 									icon={<LocalPizzaIcon/>}
 								/>
@@ -56,23 +57,23 @@ const DishForm = () => {
 									name='diameter'
 									label='Diameter'
 									type='number'
-									inputProps={{ step: 0.1, min: 0 }}
+									inputProps={{ step: 0.1, min: 1 }}
 									className={styles.label}
 									icon={<HeightIcon/>}
 								/>
 							</>
 						}
-						{dishType === 'Sandwich' &&
+						{dishType === 'sandwich' &&
 							<DishTextField
 								name='slices_of_bread'
 								label='Slices'
 								type='number'
-								inputProps={{ min: 0, pattern: '^[0-9]+$'  }}
+								inputProps={{ min: 0 }}
 								className={styles.label}
 								icon={<BreakfastDiningIcon/>}
 							/>
 						}
-						{dishType === 'Soup' &&
+						{dishType === 'soup' &&
 							<DishSelect name='spiciness_scale' label='Spiciness scale'
 								options={
 									Array.from({length: 10}, (_, i) => (
@@ -85,7 +86,12 @@ const DishForm = () => {
 						}
 					</ThemeProvider>
 					<div className={styles.order}>
-						<button className={styles.orderButton}>Order</button>
+						<button className={styles.orderButton} disabled={isLoading || response.isSuccess || response.isFailed}>
+							{response.isSuccess ? 'Ordered' : 'Order'}
+							{isLoading && <CircularProgress size={25} className={styles.orderButtonIcon} />}
+							{response.isSuccess && <DoneIcon className={styles.orderButtonIcon} style={{color: 'green'}}/>}
+							{response.isFailed && <ClearIcon className={styles.orderButtonIcon} style={{color: 'red'}}/>}
+						</button>
 					</div>
 				</form>
 			</FormProvider>
