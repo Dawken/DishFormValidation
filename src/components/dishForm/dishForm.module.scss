@@ -12,6 +12,9 @@
     .label {
       margin: 25px 30px;
       height: 56px;
+      .labelIcon {
+        color:white;
+      }
     }
   }
   .order {
@@ -43,3 +46,8 @@
     transform: scale(1.05);
   }
 }
+.selectLabel {
+  background-color: #1f1f1f;
+  color: white;
+}
+

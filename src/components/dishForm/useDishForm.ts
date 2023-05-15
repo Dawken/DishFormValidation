@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useMutation } from 'react-query'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -11,8 +11,6 @@ import OrderSchema from './dishFormSchema'
 type DishInput = TypeOf<typeof OrderSchema>
 
 const useDishForm = () => {
-
-    const [dishType, setDishType] = useState('')
 
     const { mutate: order, isLoading, isSuccess, isError, reset } = useMutation((values: DishInput) => {
         return axios.post('https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/', values)
@@ -41,10 +39,11 @@ const useDishForm = () => {
         return methods.handleSubmit((formv) => order(formv))
     }
 
+    const dishType = methods.watch('type')
+
     return {
         methods,
         dishType,
-        setDishType,
         isLoading,
         isSuccess,
         isError,

@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:16.15.1-alpine
 
 WORKDIR /HexOceanForm
 COPY package.json .

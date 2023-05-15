@@ -3,8 +3,8 @@ import DishForm from './components/dishForm/dishForm'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import {purpleTheme} from './themes/customMuiTheme'
-import {ThemeProvider} from '@mui/material'
+import { purpleTheme } from './themes/customMuiTheme'
+import { ThemeProvider } from '@mui/material'
 
 const queryClient = new QueryClient({
     defaultOptions: {

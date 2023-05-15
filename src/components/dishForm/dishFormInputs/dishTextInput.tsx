@@ -1,6 +1,7 @@
 import { Controller, useFormContext, get } from 'react-hook-form'
 import { InputAdornment, TextField, TextFieldProps } from '@mui/material'
 import React, { FC } from 'react'
+import styles from '../dishForm.module.scss'
 
 type InputProps = {
 	name: string;
@@ -30,7 +31,7 @@ const DishTextInput: FC<InputProps> = ({ name, ...otherProps }) => {
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position='start'>
-                                <div style={{color:'white'}}>{otherProps.icon}</div>
+                                <div className={styles.labelIcon}>{otherProps.icon}</div>
                             </InputAdornment>
                         )
                     }}

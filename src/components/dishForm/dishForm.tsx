@@ -20,7 +20,7 @@ import arrayFrom from '../../utils/arrayFrom'
 
 const DishForm = () => {
 
-    const { methods, dishType, setDishType, isLoading, isSuccess, isError, submitDishForm } = useDishForm()
+    const { methods, dishType, isLoading, isSuccess, isError, submitDishForm } = useDishForm()
 
     return (
         <div className={styles.layout}>
@@ -41,7 +41,6 @@ const DishForm = () => {
                         ]}
                         className={styles.label}
                         icon={<RestaurantIcon />}
-                        setDishType={setDishType}
                     />
                     {dishType === 'pizza' &&
 							<>

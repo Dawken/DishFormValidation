@@ -7,6 +7,7 @@ import { DatePickerProps, MobileTimePicker, MobileTimePickerProps, TimeView } fr
 import dayjs from 'dayjs'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { InputAdornment } from '@mui/material'
+import styles from '../dishForm.module.scss'
 
 type TimePickerProps = {
 	name: string
@@ -46,7 +47,7 @@ const DishTimePicker: FC<TimePickerProps & CustomMobileTimePickerProps> = ({ nam
                                     InputProps: {
                                         startAdornment: (
                                             <InputAdornment position='start'>
-                                                <AccessTimeIcon style={{color:'white'}} />
+                                                <AccessTimeIcon className={styles.labelIcon} />
                                             </InputAdornment>
                                         )
                                     },
