@@ -12,54 +12,43 @@ type DishInput = TypeOf<typeof OrderSchema>
 
 const useDishForm = () => {
 
-	const [dishType, setDishType] = useState('')
-	const [response, setResponse] = useState({
-		isSuccess: false,
-		isFailed: false
-	})
+    const [dishType, setDishType] = useState('')
 
-	const { mutate: order, isLoading } = useMutation((values: DishInput) => {
-		return axios.post('https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/', values)
-	},{
-		onSuccess: () => {
-			setResponse(prevState => ({
-				...prevState,
-				isSuccess: true
-			}))
-			toast.success('Dish ordered successfully')
-		},
-		onError: () => {
-			setResponse(prevState => ({
-				...prevState,
-				isFailed: true
-			}))
-			toast.error('Cannot order dish, try again later')
-		}
-	})
-	useEffect(() => {
-		setTimeout(() => {
-			setResponse({
-				isSuccess: false,
-				isFailed: false
-			})
-		}, 5000)
-	}, [isLoading])
+    const { mutate: order, isLoading, isSuccess, isError, reset } = useMutation((values: DishInput) => {
+        return axios.post('https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/', values)
+    },{
+        onSuccess: () => {
+            toast.success('Dish ordered successfully')
+        },
+        onError: () => {
+            toast.error('Cannot order dish, try again later')
+        }
+    })
 
-	const methods = useForm<DishInput>({
-		resolver: zodResolver(OrderSchema),
-	})
+    useEffect(() => {
+        if(isSuccess || isError) {
+            setTimeout(() => {
+                reset()
+            }, 5000)
+        }
+    }, [isSuccess, isError])
 
-	const submitDishForm = () => {
-		return methods.handleSubmit((formv) => order(formv))
-	}
+    const methods = useForm<DishInput>({
+        resolver: zodResolver(OrderSchema),
+    })
 
-	return {
-		methods,
-		dishType,
-		setDishType,
-		isLoading,
-		response,
-		submitDishForm
-	}
+    const submitDishForm = () => {
+        return methods.handleSubmit((formv) => order(formv))
+    }
+
+    return {
+        methods,
+        dishType,
+        setDishType,
+        isLoading,
+        isSuccess,
+        isError,
+        submitDishForm
+    }
 }
 export default useDishForm

@@ -14,56 +14,56 @@ type InputProps = {
 
 const DishSelect: FC<InputProps> = ({ name, options, setDishType, ...otherProps }) => {
 
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext()
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext()
 
-	const error = get(errors, name)
+    const error = get(errors, name)
 
-	return (
-		<FormControl>
-			<Controller
-				control={control}
-				name={name}
-				render={({ field }) => (
-					<>
-						<InputLabel className={styles.label}>{otherProps.label}</InputLabel>
-						<Select
-							{...otherProps}
-							{...field}
-							onChange={event => {
-								field.onChange(event)
-								setDishType && setDishType(event.target.value)
-							}}
-							error={!!error}
-							value={field.value ?? otherProps.value ?? ''}
-							startAdornment={
-								<InputAdornment position='start'>
-									<div style={{color:'white'}}>{otherProps.icon}</div>
-								</InputAdornment>
-							}
-							inputProps={{
-								MenuProps: {
-									MenuListProps: {
-										sx: {
-											backgroundColor: '#1f1f1f',
-											color: 'white'
-										}
-									}
-								}
-							}}
-						>
-							{options.map((option) => (
-								<MenuItem key={option.value} value={option.value}>
-									{option.label}
-								</MenuItem>
-							))}
-						</Select>
-					</>
-				)}
-			/>
-		</FormControl>
-	)
+    return (
+        <FormControl>
+            <Controller
+                control={control}
+                name={name}
+                render={({ field }) => (
+                    <>
+                        <InputLabel className={styles.label}>{otherProps.label}</InputLabel>
+                        <Select
+                            {...otherProps}
+                            {...field}
+                            onChange={event => {
+                                field.onChange(event)
+                                setDishType && setDishType(event.target.value)
+                            }}
+                            error={!!error}
+                            value={field.value ?? otherProps.value ?? ''}
+                            startAdornment={
+                                <InputAdornment position='start'>
+                                    <div style={{color:'white'}}>{otherProps.icon}</div>
+                                </InputAdornment>
+                            }
+                            inputProps={{
+                                MenuProps: {
+                                    MenuListProps: {
+                                        sx: {
+                                            backgroundColor: '#1f1f1f',
+                                            color: 'white'
+                                        }
+                                    }
+                                }
+                            }}
+                        >
+                            {options.map((option) => (
+                                <MenuItem key={option.value} value={option.value}>
+                                    {option.label}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </>
+                )}
+            />
+        </FormControl>
+    )
 }
 export default DishSelect

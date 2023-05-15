@@ -9,34 +9,34 @@ type InputProps = {
 
 const DishTextField: FC<InputProps> = ({ name, ...otherProps }) => {
 
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext()
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext()
 
-	const error = get(errors, name)
+    const error = get(errors, name)
 
-	return (
-		<Controller
-			control={control}
-			name={name}
-			render={({ field }) => (
-				<TextField
-					{...otherProps}
-					{...field}
-					value={field.value ?? otherProps.value ?? ''}
-					error={!!errors[name]}
-					helperText={error ? error.message : ''}
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position='start'>
-								<div style={{color:'white'}}>{otherProps.icon}</div>
-							</InputAdornment>
-						)
-					}}
-				/>
-			)}
-		/>
-	)
+    return (
+        <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+                <TextField
+                    {...otherProps}
+                    {...field}
+                    value={field.value ?? otherProps.value ?? ''}
+                    error={!!errors[name]}
+                    helperText={error ? error.message : ''}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position='start'>
+                                <div style={{color:'white'}}>{otherProps.icon}</div>
+                            </InputAdornment>
+                        )
+                    }}
+                />
+            )}
+        />
+    )
 }
 export default DishTextField

@@ -18,51 +18,51 @@ interface CustomMobileTimePickerProps extends MobileTimePickerProps<TimeView> {
 
 const DishTimePicker: FC<TimePickerProps & CustomMobileTimePickerProps> = ({ name, ...otherProps }) => {
 
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext()
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext()
 
-	const error = get(errors, name)
+    const error = get(errors, name)
 
-	return (
-		<Controller
-			control={control}
-			name={name}
-			render={({ field }) => (
-				<LocalizationProvider
-					dateAdapter={AdapterDayjs}
-				>
-					<DemoContainer components={['MobileTimePicker', 'MobileTimePicker', 'MobileTimePicker']} sx={{ minWidth: 210 }}>
-						<MobileTimePicker
-							{...otherProps}
-							{...field}
-							views={['hours', 'minutes', 'seconds']}
-							format='HH:mm:ss'
-							value={field.value ?? otherProps.value ?? null}
-							slotProps={{
-								textField: {
-									error: !!error,
-									InputProps: {
-										startAdornment: (
-											<InputAdornment position='start'>
-												<AccessTimeIcon style={{color:'white'}} />
-											</InputAdornment>
-										)
-									},
-									placeholder: undefined
-								}
-							}}
-							ampm={false}
-							onChange={value => {
-								const preparationTime = dayjs(value).format('HH:mm:ss')
-								field.onChange(preparationTime)
-							}}
-						/>
-					</DemoContainer>
-				</LocalizationProvider>
-			)}
-		/>
-	)
+    return (
+        <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+                <LocalizationProvider
+                    dateAdapter={AdapterDayjs}
+                >
+                    <DemoContainer components={['MobileTimePicker', 'MobileTimePicker', 'MobileTimePicker']} sx={{ minWidth: 210 }}>
+                        <MobileTimePicker
+                            {...otherProps}
+                            {...field}
+                            views={['hours', 'minutes', 'seconds']}
+                            format='HH:mm:ss'
+                            value={field.value ?? otherProps.value ?? null}
+                            slotProps={{
+                                textField: {
+                                    error: !!error,
+                                    InputProps: {
+                                        startAdornment: (
+                                            <InputAdornment position='start'>
+                                                <AccessTimeIcon style={{color:'white'}} />
+                                            </InputAdornment>
+                                        )
+                                    },
+                                    placeholder: undefined
+                                }
+                            }}
+                            ampm={false}
+                            onChange={value => {
+                                const preparationTime = dayjs(value).format('HH:mm:ss')
+                                field.onChange(preparationTime)
+                            }}
+                        />
+                    </DemoContainer>
+                </LocalizationProvider>
+            )}
+        />
+    )
 }
 export default DishTimePicker

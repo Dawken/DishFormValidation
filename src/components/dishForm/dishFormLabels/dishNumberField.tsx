@@ -10,42 +10,42 @@ type InputProps = {
 
 const DishNumberField: FC<InputProps> = ({ name, ...otherProps }) => {
 
-	const {
-		control,
-		formState: { errors },
-	} = useFormContext()
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext()
 
-	const error = get(errors, name)
+    const error = get(errors, name)
 
-	return (
-		<Controller
-			control={control}
-			name={name}
-			render={({ field }) => (
-				<TextField
-					{...otherProps}
-					{...field}
-					value={field.value ?? otherProps.value ?? ''}
-					error={!!errors[name]}
-					helperText={typeof field.value === 'number' && error ? error.message : ''}
-					InputProps={{
-						startAdornment: (
-							<InputAdornment position='start'>
-								<div style={{color:'white'}}>{otherProps.icon}</div>
-							</InputAdornment>
-						)
-					}}
-					onKeyPress={(event) => {
-						if (!otherProps.regex.test(event.key)) {
-							event.preventDefault()
-						}
-					}}
-					onChange={event => {
-						field.onChange(event.target.value.length > 0 ? Number(event.target.value) : '')
-					}}
-				/>
-			)}
-		/>
-	)
+    return (
+        <Controller
+            control={control}
+            name={name}
+            render={({ field }) => (
+                <TextField
+                    {...otherProps}
+                    {...field}
+                    value={field.value ?? otherProps.value ?? ''}
+                    error={!!errors[name]}
+                    helperText={typeof field.value === 'number' && error ? error.message : ''}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position='start'>
+                                <div style={{color:'white'}}>{otherProps.icon}</div>
+                            </InputAdornment>
+                        )
+                    }}
+                    onKeyPress={(event) => {
+                        if (!otherProps.regex.test(event.key)) {
+                            event.preventDefault()
+                        }
+                    }}
+                    onChange={event => {
+                        field.onChange(event.target.value.length > 0 ? Number(event.target.value) : '')
+                    }}
+                />
+            )}
+        />
+    )
 }
 export default DishNumberField
