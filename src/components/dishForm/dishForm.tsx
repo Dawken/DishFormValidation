@@ -15,6 +15,7 @@ import BreakfastDiningIcon from '@mui/icons-material/BreakfastDining'
 import DoneIcon from '@mui/icons-material/Done'
 import ClearIcon from '@mui/icons-material/Clear'
 import DishNumberField from './dishFormLabels/dishNumberField'
+import arrayFrom from '../../utils/arrayFrom'
 
 
 const DishForm = () => {
@@ -75,11 +76,7 @@ const DishForm = () => {
 					}
 					{dishType === 'soup' &&
 							<DishSelect name='spiciness_scale' label='Spiciness scale'
-								options={
-									Array.from({length: 10}, (_, i) => (
-										{value: i+1, label: i+1}
-									))
-								}
+								options={arrayFrom(10)}
 								icon={<SoupKitchenIcon />}
 								className={styles.label}
 							/>
