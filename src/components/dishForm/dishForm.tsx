@@ -3,9 +3,9 @@ import styles from './dishForm.module.scss'
 import { CircularProgress } from '@mui/material'
 import useDishForm from './useDishForm'
 import { FormProvider } from 'react-hook-form'
-import DishTextField from './dishFormLabels/dishTextField'
-import DishTimePicker from './dishFormLabels/dishTimePicker'
-import DishSelect from './dishFormLabels/dishSelect'
+import DishTextInput from './dishFormInputs/dishTextInput'
+import DishTimePicker from './dishFormInputs/dishTimePicker'
+import DishSelect from './dishFormInputs/dishSelect'
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline'
 import RestaurantIcon from '@mui/icons-material/Restaurant'
 import LocalPizzaIcon from '@mui/icons-material/LocalPizza'
@@ -14,7 +14,7 @@ import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
 import BreakfastDiningIcon from '@mui/icons-material/BreakfastDining'
 import DoneIcon from '@mui/icons-material/Done'
 import ClearIcon from '@mui/icons-material/Clear'
-import DishNumberField from './dishFormLabels/dishNumberField'
+import DishNumberInput from './dishFormInputs/dishNumberInput'
 import arrayFrom from '../../utils/arrayFrom'
 
 
@@ -29,7 +29,7 @@ const DishForm = () => {
                     onSubmit={submitDishForm()}
                     className={styles.dishForm}
                 >
-                    <DishTextField name='name' label='Dish name' className={styles.label} icon={<DriveFileRenameOutlineIcon />}/>
+                    <DishTextInput name='name' label='Dish name' className={styles.label} icon={<DriveFileRenameOutlineIcon />}/>
                     <DishTimePicker name='preparation_time' label='Preparation time' className={styles.label}/>
                     <DishSelect
                         name='type'
@@ -45,7 +45,7 @@ const DishForm = () => {
                     />
                     {dishType === 'pizza' &&
 							<>
-							    <DishNumberField
+							    <DishNumberInput
 							        name='no_of_slices'
 							        label='Slices'
 							        regex={/[0-9]/}
@@ -53,7 +53,7 @@ const DishForm = () => {
 							        className={styles.label}
 							        icon={<LocalPizzaIcon/>}
 							    />
-							    <DishNumberField
+							    <DishNumberInput
 							        name='diameter'
 							        label='Diameter'
 							        regex={/^\d*\.?\d*$/}
@@ -65,7 +65,7 @@ const DishForm = () => {
 							</>
                     }
                     {dishType === 'sandwich' &&
-							<DishNumberField
+							<DishNumberInput
 							    name='slices_of_bread'
 							    label='Slices'
 							    regex={/[0-9]/}

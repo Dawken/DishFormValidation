@@ -5,9 +5,10 @@ import React, { FC } from 'react'
 type InputProps = {
 	name: string;
 	icon: React.ReactNode
+	regex: RegExp
 } & TextFieldProps
 
-const DishTextField: FC<InputProps> = ({ name, ...otherProps }) => {
+const DishNumberInput: FC<InputProps> = ({ name, ...otherProps }) => {
 
     const {
         control,
@@ -26,7 +27,7 @@ const DishTextField: FC<InputProps> = ({ name, ...otherProps }) => {
                     {...field}
                     value={field.value ?? otherProps.value ?? ''}
                     error={!!errors[name]}
-                    helperText={error ? error.message : ''}
+                    helperText={typeof field.value === 'number' && error ? error.message : ''}
                     InputProps={{
                         startAdornment: (
                             <InputAdornment position='start'>
@@ -34,9 +35,17 @@ const DishTextField: FC<InputProps> = ({ name, ...otherProps }) => {
                             </InputAdornment>
                         )
                     }}
+                    onKeyPress={(event) => {
+                        if (!otherProps.regex.test(event.key)) {
+                            event.preventDefault()
+                        }
+                    }}
+                    onChange={event => {
+                        field.onChange(event.target.value.length > 0 ? Number(event.target.value) : '')
+                    }}
                 />
             )}
         />
     )
 }
-export default DishTextField
+export default DishNumberInput
