@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './dishForm.module.scss'
-import { CircularProgress, ThemeProvider } from '@mui/material'
-import { purpleTheme } from '../../themes/customMuiTheme'
+import { CircularProgress } from '@mui/material'
 import useDishForm from './useDishForm'
 import { FormProvider } from 'react-hook-form'
 import DishTextField from './dishFormLabels/dishTextField'
@@ -20,31 +19,30 @@ import DishNumberField from './dishFormLabels/dishNumberField'
 
 const DishForm = () => {
 
-	const { methods, order, dishType, setDishType, isLoading, response } = useDishForm()
+	const { methods, dishType, setDishType, isLoading, response, submitDishForm } = useDishForm()
 
 	return (
 		<div className={styles.layout}>
 			<FormProvider {...methods}>
 				<form
-					onSubmit={methods.handleSubmit((formv) => order(formv))}
+					onSubmit={submitDishForm()}
 					className={styles.dishForm}
 				>
-					<ThemeProvider theme={purpleTheme} >
-						<DishTextField name='name' label='Dish name' className={styles.label} icon={<DriveFileRenameOutlineIcon />}/>
-						<DishTimePicker name='preparation_time' label='Preparation time' className={styles.label}/>
-						<DishSelect
-							name='type'
-							label='Dish type'
-							options={[
-								{ value: 'pizza', label: 'pizza' },
-								{ value: 'soup', label: 'soup' },
-								{ value: 'sandwich', label: 'sandwich' },
-							]}
-							className={styles.label}
-							icon={<RestaurantIcon />}
-							setDishType={setDishType}
-						/>
-						{dishType === 'pizza' &&
+					<DishTextField name='name' label='Dish name' className={styles.label} icon={<DriveFileRenameOutlineIcon />}/>
+					<DishTimePicker name='preparation_time' label='Preparation time' className={styles.label}/>
+					<DishSelect
+						name='type'
+						label='Dish type'
+						options={[
+							{ value: 'pizza', label: 'pizza' },
+							{ value: 'soup', label: 'soup' },
+							{ value: 'sandwich', label: 'sandwich' },
+						]}
+						className={styles.label}
+						icon={<RestaurantIcon />}
+						setDishType={setDishType}
+					/>
+					{dishType === 'pizza' &&
 							<>
 								<DishNumberField
 									name='no_of_slices'
@@ -64,8 +62,8 @@ const DishForm = () => {
 									icon={<HeightIcon/>}
 								/>
 							</>
-						}
-						{dishType === 'sandwich' &&
+					}
+					{dishType === 'sandwich' &&
 							<DishNumberField
 								name='slices_of_bread'
 								label='Slices'
@@ -74,8 +72,8 @@ const DishForm = () => {
 								className={styles.label}
 								icon={<BreakfastDiningIcon/>}
 							/>
-						}
-						{dishType === 'soup' &&
+					}
+					{dishType === 'soup' &&
 							<DishSelect name='spiciness_scale' label='Spiciness scale'
 								options={
 									Array.from({length: 10}, (_, i) => (
@@ -85,8 +83,7 @@ const DishForm = () => {
 								icon={<SoupKitchenIcon />}
 								className={styles.label}
 							/>
-						}
-					</ThemeProvider>
+					}
 					<div className={styles.order}>
 						<button className={styles.orderButton}
 							style={isLoading || response.isSuccess || response.isFailed ?
@@ -95,9 +92,9 @@ const DishForm = () => {
 								{}}
 						>
 							{(!isLoading && !response.isSuccess && !response.isFailed) && 'Order'}
-							{isLoading && <CircularProgress size={25}  />}
-							{response.isSuccess && <DoneIcon style={{color: 'green'}}/>}
-							{response.isFailed && <ClearIcon style={{color: 'red'}}/>}
+							{isLoading && <CircularProgress size={25} style={{color:'#00e8ff'}}/>}
+							{response.isSuccess && <DoneIcon style={{color: '#10ff00'}}/>}
+							{response.isFailed && <ClearIcon style={{color: '#ff0000'}}/>}
 						</button>
 					</div>
 				</form>

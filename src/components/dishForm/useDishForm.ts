@@ -87,13 +87,18 @@ const useDishForm = () => {
 	const methods = useForm<DishInput>({
 		resolver: zodResolver(OrderSchema),
 	})
+
+	const submitDishForm = () => {
+		return methods.handleSubmit((formv) => order(formv))
+	}
+
 	return {
 		methods,
-		order,
 		dishType,
 		setDishType,
 		isLoading,
-		response
+		response,
+		submitDishForm
 	}
 }
 export default useDishForm
